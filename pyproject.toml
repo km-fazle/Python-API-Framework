@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "py_api_framework"
+name = "km-pyapi"
 version = "0.1.0"
 description = "A lightweight FastAPI-inspired REST API framework"
 readme = "README.md"
@@ -14,7 +14,6 @@ authors = [
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
@@ -51,7 +50,7 @@ dev = [
 ]
 
 [project.scripts]
-py-api = "py_api_framework.main:app"
+km-pyapi = "py_api_framework.cli:main"
 
 [project.urls]
 Homepage = "https://kmfazle.dev"

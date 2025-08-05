@@ -1,10 +1,24 @@
-# Python API Framework
+# KM PyAPI Framework
 
 A lightweight FastAPI-inspired REST API framework with automatic validation, built-in security, and OpenAPI documentation.
 
 **Author:** [KM Fazle Rabbi](https://kmfazle.dev)  
 **GitHub:** [@km-fazle](https://github.com/km-fazle)  
 **LinkedIn:** [km-fazle](https://linkedin.com/in/km-fazle)
+
+## Installation
+
+### From PyPI (Recommended)
+```bash
+pip install km-pyapi
+```
+
+### From Source
+```bash
+git clone https://github.com/km-fazle/Python-API-Framework.git
+cd Python-API-Framework
+pip install -e .
+```
 
 ## Features
 
@@ -22,39 +36,34 @@ A lightweight FastAPI-inspired REST API framework with automatic validation, bui
 
 ### Installation
 
-1. Clone the repository:
+1. Install the package:
 ```bash
-git clone https://github.com/km-fazle/Python-API-Framework.git
-cd Python-API-Framework
+pip install km-pyapi
 ```
 
-2. Create a virtual environment:
+2. Create a new project directory:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+mkdir my-api-project
+cd my-api-project
 ```
 
-3. Install dependencies:
+3. Set up environment variables (optional):
 ```bash
-pip install -r requirements.txt
-```
-
-4. Set up environment variables (optional):
-```bash
-cp env.example .env
-# Edit .env with your configuration
+# Create .env file with your configuration
+echo "DATABASE_URL=sqlite:///./app.db" > .env
+echo "SECRET_KEY=your-secret-key-here" >> .env
 ```
 
 ### Running the Application
 
 #### Development Mode
 ```bash
-uvicorn py_api_framework.main:app --reload
+km-pyapi --reload
 ```
 
 #### Production Mode
 ```bash
-uvicorn py_api_framework.main:app --host 0.0.0.0 --port 8000
+km-pyapi --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at:
@@ -140,7 +149,7 @@ The framework uses Pydantic settings for configuration. You can configure it thr
 
 ```env
 # Database
-DATABASE_URL=sqlite:///./test.db
+DATABASE_URL=sqlite:///./app.db
 
 # JWT Settings
 SECRET_KEY=your-secret-key-here
@@ -149,7 +158,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 # API Settings
 API_V1_STR=/api/v1
-PROJECT_NAME=Python API Framework
+PROJECT_NAME=KM PyAPI Framework
 
 # CORS
 BACKEND_CORS_ORIGINS=["*"]
@@ -159,22 +168,25 @@ ENVIRONMENT=development
 DEBUG=true
 ```
 
-## Testing
+## Development
 
-Run the test suite:
+### Running Tests
+
+If you're developing the framework:
 
 ```bash
-# Install test dependencies
-pip install pytest
+# Clone the repository
+git clone https://github.com/km-fazle/Python-API-Framework.git
+cd Python-API-Framework
 
-# Run all tests
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Run tests
 pytest
 
 # Run with coverage
 pytest --cov=py_api_framework
-
-# Run specific test file
-pytest tests/test_auth.py
 ```
 
 ## Project Structure
@@ -219,20 +231,6 @@ The framework uses SQLAlchemy with SQLite by default. For production, you can sw
 - **Input Validation**: Automatic request validation with Pydantic
 - **SQL Injection Protection**: SQLAlchemy ORM prevents SQL injection
 
-## Development
-
-### Adding New Endpoints
-
-1. Create a new router file in `py_api_framework/routers/`
-2. Define your endpoints with proper authentication
-3. Include the router in `main.py`
-
-### Adding New Models
-
-1. Add the model to `models.py`
-2. Create corresponding schemas in `schemas.py`
-3. Run database migrations if needed
-
 ## Deployment
 
 ### Docker
@@ -242,12 +240,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install km-pyapi
 
-COPY . .
 EXPOSE 8000
 
-CMD ["uvicorn", "py_api_framework.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["km-pyapi", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 ### Environment Variables for Production
@@ -292,4 +289,5 @@ If you have any questions or need help, please open an issue on GitHub.
 - JWT authentication
 - CRUD operations for items
 - Comprehensive test suite
-- OpenAPI documentation 
+- OpenAPI documentation
+- PyPI package available as `km-pyapi` 
